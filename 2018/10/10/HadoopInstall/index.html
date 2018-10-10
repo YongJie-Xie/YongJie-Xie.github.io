@@ -53,24 +53,93 @@
         </div>
         <div class="content markdown">
             <p>本文搭建了一个由三节点(master、worker1、worker2)构成的Hadoop完全分布式集群，并通过Hadoop分布式计算的一个示例测试集群的正确性。<br>本文集群三个节点基于三台虚拟机进行搭建，节点安装的操作系统为Centos 7 (YUM源)，Hadoop版本选取为3.1.1。<br>作者也是初次搭建Hadoop集群，其间遇到了很多问题，故希望通过该博客让读者避免。</p>
-<h2 id="一、准备工作"><a href="#一、准备工作" class="headerlink" title="一、准备工作"></a>一、准备工作</h2><h3 id="1）下载"><a href="#1）下载" class="headerlink" title="1）下载"></a>1）下载</h3><ul>
+<h2 id="一、准备工作"><a href="#一、准备工作" class="headerlink" title="一、准备工作"></a>一、准备工作</h2><h3 id="1-下载"><a href="#1-下载" class="headerlink" title="1. 下载"></a>1. 下载</h3><ul>
 <li><a href="https://my.vmware.com/web/vmware/details?downloadGroup=WKST1413-WIN&amp;productId=686&amp;rPId=25457" target="_blank" rel="noopener">VMware Workstation 14</a></li>
 <li><a href="http://mirrors.aliyun.com/centos/7.5.1804/isos/x86_64/CentOS-7-x86_64-Minimal-1804.iso" target="_blank" rel="noopener">CentOS-7-x86_64-Minimal-1804</a></li>
 <li><a href="https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html" target="_blank" rel="noopener">Java SE Development Kit 8u181</a></li>
 <li><a href="https://www.apache.org/dyn/closer.cgi/hadoop/common/hadoop-3.1.1/hadoop-3.1.1.tar.gz" target="_blank" rel="noopener">Apache Hadoop 3.1.1</a></li>
-<li><a href="http://www.netsarang.com/download/down_form.html?code=622" target="_blank" rel="noopener">(可忽略) Xshell 6</a> –&gt; 个人免费，仅用于提升效率</li>
-<li><a href="http://www.netsarang.com/download/down_form.html?code=623" target="_blank" rel="noopener">(可忽略) Xftp 6</a> –&gt; 个人免费，仅用于提升效率</li>
+<li><a href="http://www.netsarang.com/download/down_form.html?code=622" target="_blank" rel="noopener">Xshell 6</a></li>
+<li><a href="http://www.netsarang.com/download/down_form.html?code=623" target="_blank" rel="noopener">Xftp 6</a></li>
 </ul>
-<h3 id="2）基础环境搭建"><a href="#2）基础环境搭建" class="headerlink" title="2）基础环境搭建"></a>2）基础环境搭建</h3><h4 id="a-安装-VMware-Workstation"><a href="#a-安装-VMware-Workstation" class="headerlink" title="a.安装 VMware Workstation"></a>a.安装 VMware Workstation</h4><p>略</p>
-<h4 id="b-安装-CentOS-7"><a href="#b-安装-CentOS-7" class="headerlink" title="b.安装 CentOS 7"></a>b.安装 CentOS 7</h4><p>略</p>
-<h4 id="c-安装-Xshell-6"><a href="#c-安装-Xshell-6" class="headerlink" title="c.安装 Xshell 6"></a>c.安装 Xshell 6</h4><p>略</p>
-<h4 id="c-安装-Xftp-6"><a href="#c-安装-Xftp-6" class="headerlink" title="c.安装 Xftp 6"></a>c.安装 Xftp 6</h4><p>略</p>
-<h4 id="c-安装-Java-SE-Development-Kit"><a href="#c-安装-Java-SE-Development-Kit" class="headerlink" title="c.安装 Java SE Development Kit"></a>c.安装 Java SE Development Kit</h4><p>略</p>
-<h2 id="二、配置集群网络"><a href="#二、配置集群网络" class="headerlink" title="二、配置集群网络"></a>二、配置集群网络</h2><h2 id="三、配置集群SSH免密登录"><a href="#三、配置集群SSH免密登录" class="headerlink" title="三、配置集群SSH免密登录"></a>三、配置集群SSH免密登录</h2><h2 id="四、配置集群防火墙"><a href="#四、配置集群防火墙" class="headerlink" title="四、配置集群防火墙"></a>四、配置集群防火墙</h2><h2 id="五、安装Hadoop"><a href="#五、安装Hadoop" class="headerlink" title="五、安装Hadoop"></a>五、安装Hadoop</h2><h2 id="六、配置Hadoop"><a href="#六、配置Hadoop" class="headerlink" title="六、配置Hadoop"></a>六、配置Hadoop</h2><h2 id="七、启动Hadoop"><a href="#七、启动Hadoop" class="headerlink" title="七、启动Hadoop"></a>七、启动Hadoop</h2><h2 id="八、测试Hadoop"><a href="#八、测试Hadoop" class="headerlink" title="八、测试Hadoop"></a>八、测试Hadoop</h2>
+<h3 id="2-基础环境搭建"><a href="#2-基础环境搭建" class="headerlink" title="2. 基础环境搭建"></a>2. 基础环境搭建</h3><h4 id="a-安装-VMware-Workstation"><a href="#a-安装-VMware-Workstation" class="headerlink" title="a)安装 VMware Workstation"></a>a)安装 VMware Workstation</h4><h4 id="b-安装-CentOS-7"><a href="#b-安装-CentOS-7" class="headerlink" title="b)安装 CentOS 7"></a>b)安装 CentOS 7</h4><h4 id="c-安装-Xshell-6"><a href="#c-安装-Xshell-6" class="headerlink" title="c)安装 Xshell 6"></a>c)安装 Xshell 6</h4><h4 id="d-安装-Xftp-6"><a href="#d-安装-Xftp-6" class="headerlink" title="d)安装 Xftp 6"></a>d)安装 Xftp 6</h4><h4 id="e-安装-Java-SE-Development-Kit"><a href="#e-安装-Java-SE-Development-Kit" class="headerlink" title="e)安装 Java SE Development Kit"></a>e)安装 Java SE Development Kit</h4><h2 id="二、配置集群网络"><a href="#二、配置集群网络" class="headerlink" title="二、配置集群网络"></a>二、配置集群网络</h2><h3 id="1-配置静态-ip-地址"><a href="#1-配置静态-ip-地址" class="headerlink" title="1. 配置静态 ip 地址"></a>1. 配置静态 ip 地址</h3><h3 id="2-配置域名-hostname"><a href="#2-配置域名-hostname" class="headerlink" title="2. 配置域名 hostname"></a>2. 配置域名 hostname</h3><h3 id="3-配置-hosts-文件"><a href="#3-配置-hosts-文件" class="headerlink" title="3. 配置 hosts 文件"></a>3. 配置 hosts 文件</h3><h3 id="4-测试集群网络"><a href="#4-测试集群网络" class="headerlink" title="4. 测试集群网络"></a>4. 测试集群网络</h3><h2 id="三、配置集群SSH免密登录"><a href="#三、配置集群SSH免密登录" class="headerlink" title="三、配置集群SSH免密登录"></a>三、配置集群SSH免密登录</h2><h3 id="1-配置用户"><a href="#1-配置用户" class="headerlink" title="1. 配置用户"></a>1. 配置用户</h3><h4 id="a-创建用户"><a href="#a-创建用户" class="headerlink" title="a) 创建用户"></a>a) 创建用户</h4><h4 id="a-设置密码"><a href="#a-设置密码" class="headerlink" title="a) 设置密码"></a>a) 设置密码</h4><h4 id="b-添加管理员权限"><a href="#b-添加管理员权限" class="headerlink" title="b) 添加管理员权限"></a>b) 添加管理员权限</h4><h3 id="2-配置免密登录"><a href="#2-配置免密登录" class="headerlink" title="2. 配置免密登录"></a>2. 配置免密登录</h3><h4 id="a-生成密钥对"><a href="#a-生成密钥对" class="headerlink" title="a) 生成密钥对"></a>a) 生成密钥对</h4><h4 id="b-部署公钥"><a href="#b-部署公钥" class="headerlink" title="b) 部署公钥"></a>b) 部署公钥</h4><h4 id="c-文件权限设置"><a href="#c-文件权限设置" class="headerlink" title="c) 文件权限设置"></a>c) 文件权限设置</h4><h3 id="3-测试集群免密登录"><a href="#3-测试集群免密登录" class="headerlink" title="3. 测试集群免密登录"></a>3. 测试集群免密登录</h3><h2 id="四、配置集群防火墙"><a href="#四、配置集群防火墙" class="headerlink" title="四、配置集群防火墙"></a>四、配置集群防火墙</h2><h3 id="1-彻底关闭Firewalld"><a href="#1-彻底关闭Firewalld" class="headerlink" title="1. 彻底关闭Firewalld"></a>1. 彻底关闭Firewalld</h3><h3 id="2-彻底关闭SeLinux"><a href="#2-彻底关闭SeLinux" class="headerlink" title="2. 彻底关闭SeLinux"></a>2. 彻底关闭SeLinux</h3><h2 id="五、安装Hadoop"><a href="#五、安装Hadoop" class="headerlink" title="五、安装Hadoop"></a>五、安装Hadoop</h2><h2 id="六、配置Hadoop"><a href="#六、配置Hadoop" class="headerlink" title="六、配置Hadoop"></a>六、配置Hadoop</h2><h2 id="七、启动Hadoop"><a href="#七、启动Hadoop" class="headerlink" title="七、启动Hadoop"></a>七、启动Hadoop</h2><h2 id="八、测试Hadoop"><a href="#八、测试Hadoop" class="headerlink" title="八、测试Hadoop"></a>八、测试Hadoop</h2>
             <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
             <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="false">
-                <source type="audio/mpeg" src="http://link.hhtjim.com/163/515143305.mp3,http://link.hhtjim.com/163/436514312.mp3">
+                <source type="audio/mpeg" src="">
             </audio>
+            
+                <ul id="audio-list" style="display:none">
+                    
+                        <li title='0' data-url='http://link.hhtjim.com/163/35032211.mp3'></li>
+                    
+                        <li title='1' data-url='http://link.hhtjim.com/163/41500546.mp3'></li>
+                    
+                        <li title='2' data-url='http://link.hhtjim.com/163/555557845.mp3'></li>
+                    
+                        <li title='3' data-url='http://link.hhtjim.com/163/493041272.mp3'></li>
+                    
+                        <li title='4' data-url='http://link.hhtjim.com/163/493041272.mp3'></li>
+                    
+                        <li title='5' data-url='http://link.hhtjim.com/163/409650440.mp3'></li>
+                    
+                        <li title='6' data-url='http://link.hhtjim.com/163/409654855.mp3'></li>
+                    
+                        <li title='7' data-url='http://link.hhtjim.com/163/407761545.mp3'></li>
+                    
+                        <li title='8' data-url='http://link.hhtjim.com/163/409654856.mp3'></li>
+                    
+                        <li title='9' data-url='http://link.hhtjim.com/163/466327445.mp3'></li>
+                    
+                        <li title='10' data-url='http://link.hhtjim.com/163/409654857.mp3'></li>
+                    
+                        <li title='11' data-url='http://link.hhtjim.com/163/405987145.mp3'></li>
+                    
+                        <li title='12' data-url='http://link.hhtjim.com/163/474945732.mp3'></li>
+                    
+                        <li title='13' data-url='http://link.hhtjim.com/163/409654858.mp3'></li>
+                    
+                        <li title='14' data-url='http://link.hhtjim.com/163/452578261.mp3'></li>
+                    
+                        <li title='15' data-url='http://link.hhtjim.com/163/409654859.mp3'></li>
+                    
+                        <li title='16' data-url='http://link.hhtjim.com/163/435307781.mp3'></li>
+                    
+                        <li title='17' data-url='http://link.hhtjim.com/163/477145631.mp3'></li>
+                    
+                        <li title='18' data-url='http://link.hhtjim.com/163/456175343.mp3'></li>
+                    
+                        <li title='19' data-url='http://link.hhtjim.com/163/409654860.mp3'></li>
+                    
+                        <li title='20' data-url='http://link.hhtjim.com/163/408250066.mp3'></li>
+                    
+                        <li title='21' data-url='http://link.hhtjim.com/163/537262197.mp3'></li>
+                    
+                        <li title='22' data-url='http://link.hhtjim.com/163/447978200.mp3'></li>
+                    
+                        <li title='23' data-url='http://link.hhtjim.com/163/439625573.mp3'></li>
+                    
+                        <li title='24' data-url='http://link.hhtjim.com/163/457840567.mp3'></li>
+                    
+                        <li title='25' data-url='http://link.hhtjim.com/163/452575951.mp3'></li>
+                    
+                        <li title='26' data-url='http://link.hhtjim.com/163/454966416.mp3'></li>
+                    
+                        <li title='27' data-url='http://link.hhtjim.com/163/419375942.mp3'></li>
+                    
+                        <li title='28' data-url='http://link.hhtjim.com/163/411988718.mp3'></li>
+                    
+                        <li title='29' data-url='http://link.hhtjim.com/163/418279656.mp3'></li>
+                    
+                        <li title='30' data-url='http://link.hhtjim.com/163/417594827.mp3'></li>
+                    
+                        <li title='31' data-url='http://link.hhtjim.com/163/423104116.mp3'></li>
+                    
+                        <li title='32' data-url='http://link.hhtjim.com/163/452577615.mp3'></li>
+                    
+                        <li title='33' data-url='http://link.hhtjim.com/163/436675327.mp3'></li>
+                    
+                        <li title='34' data-url='http://link.hhtjim.com/163/413074476.mp3'></li>
+                    
+                </ul>
             
         </div>
         
