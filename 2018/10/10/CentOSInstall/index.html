@@ -1,0 +1,153 @@
+
+<!DOCTYPE html>
+<html lang="zh-cn" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>抱着西瓜砸地球的博客</title>
+
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="Blog,"> 
+    <meta name="description" content="本文搭建了一个由三节点(master、worker1、worker2)构成的Hadoop完全分布式集群，并通过Hadoop分布式计算的一个示例测试集群的正确性。本文集群三个节点基于三台虚拟机进行搭建,"> 
+    <meta name="author" content="YongJie-Xie"> 
+    <link rel="alternative" href="atom.xml" title="抱着西瓜砸地球的博客" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+    <link rel="stylesheet" href="/css/diaspora.css">
+</head>
+
+<body class="loading">
+    <div id="loader"></div>
+    <div id="single">
+    <div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <a class="icon-home image-icon" href="javascript:;"></a>
+    <div title="播放/暂停" class="icon-play"></div>
+    <h3 class="subtitle">JDK 安装</h3>
+    <div class="social">
+        <!--<div class="like-icon">-->
+            <!--<a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
+        <!--</div>-->
+        <div>
+            <div class="share">
+                <a title="获取二维码" class="icon-scan" href="javascript:;"></a>
+            </div>
+            <div id="qr"></div>
+        </div>
+    </div>
+    <div class="scrollbar"></div>
+</div>
+    <div class="section">
+        <div class="article">
+    <div class='main'>
+        <h1 class="title">JDK 安装</h1>
+        <div class="stuff">
+            <span>十月 10, 2018</span>
+            
+  <ul class="post-tags-list"><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/JDK/">JDK</a></li></ul>
+
+
+        </div>
+        <div class="content markdown">
+            <h2 id="一、新建虚拟机并启动"><a href="#一、新建虚拟机并启动" class="headerlink" title="一、新建虚拟机并启动"></a>一、新建虚拟机并启动</h2><h3 id="1-自定义配置"><a href="#1-自定义配置" class="headerlink" title="1. 自定义配置"></a>1. 自定义配置</h3><p><img src="https://yongjie-xie.github.io/images/00005.png" alt="自定义配置" title="自定义配置"></p>
+<h3 id="2-选择镜像"><a href="#2-选择镜像" class="headerlink" title="2. 选择镜像"></a>2. 选择镜像</h3><p><img src="https://yongjie-xie.github.io/images/00006.png" alt="选择镜像" title="选择镜像"></p>
+<h3 id="3-硬件配置"><a href="#3-硬件配置" class="headerlink" title="3. 硬件配置"></a>3. 硬件配置</h3><p>根据需要自行更改<br><img src="https://yongjie-xie.github.io/images/00007.png" alt="硬件配置" title="硬件配置"></p>
+<h2 id="二、安装-CentOS-7"><a href="#二、安装-CentOS-7" class="headerlink" title="二、安装 CentOS 7"></a>二、安装 CentOS 7</h2><h3 id="1-启动虚拟机"><a href="#1-启动虚拟机" class="headerlink" title="1. 启动虚拟机"></a>1. 启动虚拟机</h3><p>进入镜像引导后选择第一个 Install CentOS 7<br><img src="https://yongjie-xie.github.io/images/00008.png" alt="镜像引导" title="镜像引导"></p>
+<h3 id="2-选择安装语言"><a href="#2-选择安装语言" class="headerlink" title="2. 选择安装语言"></a>2. 选择安装语言</h3><p>建议使用英文<br><img src="https://yongjie-xie.github.io/images/00009.png" alt="安装语言" title="安装语言"><br><img src="https://yongjie-xie.github.io/images/00013.png" alt="选择界面" title="选择界面"></p>
+<h3 id="3-启动网络"><a href="#3-启动网络" class="headerlink" title="3. 启动网络"></a>3. 启动网络</h3><p>进入NEWWORK&amp;HOSTNAME，打开Ethernet开关即可<br><img src="https://yongjie-xie.github.io/images/00010.png" alt="启动网卡" title="启动网卡"></p>
+<h3 id="4-设置时区"><a href="#4-设置时区" class="headerlink" title="4. 设置时区"></a>4. 设置时区</h3><p>进入DATE&amp;TIME，打开NetworkTime开关即可<br><img src="https://yongjie-xie.github.io/images/00011.png" alt="选择时区" title="选择时区"></p>
+<h3 id="5-设置分区"><a href="#5-设置分区" class="headerlink" title="5. 设置分区"></a>5. 设置分区</h3><p>进入INSTALLTION DESTINATION，选择磁盘后直接按Done即可<br><img src="https://yongjie-xie.github.io/images/00012.png" alt="设置分区" title="设置分区"></p>
+<h3 id="6-开始安装"><a href="#6-开始安装" class="headerlink" title="6. 开始安装"></a>6. 开始安装</h3><p>点击Begin Installtion，开始安装<br><img src="https://yongjie-xie.github.io/images/00014.png" alt="正在安装" title="正在安装"></p>
+<h3 id="7-设置管理员密码"><a href="#7-设置管理员密码" class="headerlink" title="7. 设置管理员密码"></a>7. 设置管理员密码</h3><p>如需设置简单密码，请双击Done<br><img src="https://yongjie-xie.github.io/images/00015.png" alt="正在安装" title="正在安装"></p>
+<p>安装到此结束！</p>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="false">
+                <source type="audio/mpeg" src="http://link.hhtjim.com/163/28892408.mp3,http://link.hhtjim.com/163/28138269.mp3">
+            </audio>
+            
+        </div>
+        
+    <div id='gitalk-container' class="comment link"
+        data-ae='false'
+        data-ci='6f2ced5993cec2abfdc0'
+        data-cs='53941abd6c61cb31c982bddf0394826699a4b9a7'
+        data-r='YongJie-Xie.github.io'
+        data-o='YongJie-Xie'
+        data-a='YongJie-Xie'
+        data-d='false'
+    >查看评论</div>
+
+
+    </div>
+    
+</div>
+
+
+    </div>
+</div>
+</body>
+<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script src="//lib.baomitu.com/jquery/1.8.3/jquery.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/diaspora.js"></script>
+<link rel="stylesheet" href="/photoswipe/photoswipe.css">
+<link rel="stylesheet" href="/photoswipe/default-skin/default-skin.css">
+<script src="/photoswipe/photoswipe.min.js"></script>
+<script src="/photoswipe/photoswipe-ui-default.min.js"></script>
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+</html>
